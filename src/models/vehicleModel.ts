@@ -2,7 +2,7 @@ import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IVehicle extends Document {
   driver: mongoose.Types.ObjectId;
-  type: string;
+  vehicleType: string;
   plateNumber: string;
   vehicleModel: string;
   size: string;
@@ -12,7 +12,7 @@ export interface IVehicle extends Document {
 const vehicleSchema = new Schema<IVehicle>(
   {
     driver: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    type: String,
+    vehicleType: String,
     plateNumber: String,
     vehicleModel: String,
     size: String,
