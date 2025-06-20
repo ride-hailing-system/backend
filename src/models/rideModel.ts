@@ -32,7 +32,7 @@ const rideSchema = new Schema<IRide>(
     fare: Number,
     status: {
       type: String,
-      enum: ['requested', 'accepted', "rejected",'ongoing', 'completed', 'canceled'],
+      enum: ['requested', 'accepted', 'rejected', 'ongoing', 'completed', 'canceled'],
       default: 'requested',
     },
     requestedAt: { type: String, default: Date.now.toString() },

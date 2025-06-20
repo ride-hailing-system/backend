@@ -1,6 +1,6 @@
 import { GraphQLObjectType, GraphQLString, GraphQLID } from 'graphql';
 
-const fields: any =  {
+const fields: any = {
   id: {
     type: GraphQLID,
     description: 'Unique identifier for the user',
@@ -25,21 +25,21 @@ const fields: any =  {
     type: GraphQLString,
     description: 'Role of the user (rider)',
   },
-}
+};
 
 export const UserType = new GraphQLObjectType({
   name: 'User',
   description: 'Represents a user in the ride-hailing system (rider only)',
-  fields: fields
+  fields: fields,
 });
 
 export const LoginType = new GraphQLObjectType({
-  name: "Login",
+  name: 'Login',
   fields: () => ({
     ...fields,
     token: {
       type: GraphQLString,
-      description: "The login token.",
+      description: 'The login token.',
     },
   }),
 });

@@ -1,4 +1,11 @@
-import { GraphQLObjectType, GraphQLID, GraphQLBoolean, GraphQLList, GraphQLFloat, GraphQLInputObjectType } from 'graphql';
+import {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLBoolean,
+  GraphQLList,
+  GraphQLFloat,
+  GraphQLInputObjectType,
+} from 'graphql';
 import { UserType } from './userType';
 
 export const GeoLocationType = new GraphQLObjectType({
@@ -17,7 +24,7 @@ export const GeoLocationType = new GraphQLObjectType({
 });
 
 export const GeoLocationInputType = new GraphQLInputObjectType({
-  name: "GeoLocationInput",
+  name: 'GeoLocationInput',
   fields: {
     latitude: { type: GraphQLFloat },
     longitude: { type: GraphQLFloat },

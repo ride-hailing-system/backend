@@ -16,7 +16,7 @@ const paymentSchema = new Schema<IPayment>(
     amount: Number,
     method: { type: String, enum: ['cash', 'card', 'wallet'], default: 'cash' },
     status: { type: String, enum: ['pending', 'completed', 'failed'], default: 'pending' },
-    paidAt: {type:String, default: new Date().toISOString() }
+    paidAt: { type: String, default: new Date().toISOString() },
   },
   { timestamps: true }
 );
