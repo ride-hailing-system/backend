@@ -2,34 +2,32 @@ import mongoose from 'mongoose';
 import paymentModel from '../../models/paymentModel';
 
 export const getAllPaymentsResolver = async () => {
-    try {
-      return await paymentModel.aggregate([
-        {
-          $lookup: {
-            from: 'users',
-            localField: 'rider',
-            foreignField: '_id',
-            as: 'rider',
-          },
+  try {
+    return await paymentModel.aggregate([
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'rider',
+          foreignField: '_id',
+          as: 'rider',
         },
-        { $unwind: '$rider' },
-  
-        {
-          $lookup: {
-            from: 'rides',
-            localField: 'ride',
-            foreignField: '_id',
-            as: 'ride',
-          },
-        },
-        { $unwind: '$ride' },
-      ]);
-    } catch (error: any) {
-      throw new Error(error.message);
-    }
-  };
+      },
+      { $unwind: '$rider' },
 
- 
+      {
+        $lookup: {
+          from: 'rides',
+          localField: 'ride',
+          foreignField: '_id',
+          as: 'ride',
+        },
+      },
+      { $unwind: '$ride' },
+    ]);
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
 
 export const getPaymentByIdResolver = async (_: any, args: { id: string }) => {
   try {
@@ -67,8 +65,6 @@ export const getPaymentByIdResolver = async (_: any, args: { id: string }) => {
   }
 };
 
-
-
 export const createPaymentResolver = async (_: any, args: any) => {
   try {
     const { ride, rider, amount, paidAt } = args;
@@ -88,34 +84,32 @@ export const createPaymentResolver = async (_: any, args: any) => {
 };
 
 export const updatePaymentResolver = async (_: any, args: any) => {
-    try {
-      const { _id, amount, method, status, paidAt } = args;
-      const updated = await paymentModel.findByIdAndUpdate(
-        _id,
-        {
-          amount: amount,
-          method: method,
-          status: status,
-        },
-        { new: true }
-      );
-  
-      if (!updated) throw new Error('Payment not found');
-      return updated;
-    } catch (error: any) {
-      throw new Error(error.message);
-    }
-  };
-  
+  try {
+    const { _id, amount, method, status, paidAt } = args;
+    const updated = await paymentModel.findByIdAndUpdate(
+      _id,
+      {
+        amount: amount,
+        method: method,
+        status: status,
+      },
+      { new: true }
+    );
 
-  export const deletePaymentResolver = async (_: any, args:any) => {
-    try {
-        const { _id } = args;
-      const deleted = await paymentModel.findByIdAndDelete(_id);
-      if (!deleted) throw new Error('Payment not found');
-      return deleted;
-    } catch (error: any) {
-      throw new Error(error.message);
-    }
-  };
-  
+    if (!updated) throw new Error('Payment not found');
+    return updated;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const deletePaymentResolver = async (_: any, args: any) => {
+  try {
+    const { _id } = args;
+    const deleted = await paymentModel.findByIdAndDelete(_id);
+    if (!deleted) throw new Error('Payment not found');
+    return deleted;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
