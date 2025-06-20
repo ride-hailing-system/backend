@@ -55,7 +55,6 @@ async function startApolloServer() {
 
   app.use(
     "/graphql",
-    bodyParser.json(),
     expressMiddleware(apolloServer, {
       context: async ({ req }) => ({ req }),
     })

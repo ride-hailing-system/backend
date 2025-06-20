@@ -11,12 +11,12 @@ export interface IPayment extends Document {
 
 const paymentSchema = new Schema<IPayment>(
   {
-    ride: { type: Schema.Types.ObjectId, ref: 'Ride', required: true },
+    ride: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     rider: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     amount: Number,
     method: { type: String, enum: ['cash', 'card', 'wallet'], default: 'cash' },
     status: { type: String, enum: ['pending', 'completed', 'failed'], default: 'pending' },
-    paidAt: String,
+    paidAt: {type:String, default: new Date().toISOString() }
   },
   { timestamps: true }
 );
