@@ -5,6 +5,7 @@ import { driverQueries } from "./queries/driverQueries";
 import { vehicleQueries } from "./queries/vehicleQueries";
 import { paymentQueries } from "./queries/paymentQueries";
 import { rateQueries } from "./queries/rateQueries";
+import { rideQueries } from "./queries/rideQueries";
 
 export const Query = new GraphQLObjectType({
   name: "Query",
@@ -14,6 +15,7 @@ export const Query = new GraphQLObjectType({
     ...driverQueries,
     ...vehicleQueries,
     ...paymentQueries,
-    ...rateQueries
+    ...rateQueries,
+    ...rideQueries
   },
 });

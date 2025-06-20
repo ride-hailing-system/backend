@@ -5,6 +5,7 @@ import { driverMutations } from "./mutation/driverMutation";
 import { vehicleMutations } from "./mutation/vehicleMutation";
 import { paymentMutations } from "./mutation/paymentMutation";
 import { rateMutations } from "./mutation/rateMutation";
+import { rideMutations } from "./mutation/rideMutation";
 
 export const Mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -14,6 +15,7 @@ export const Mutation = new GraphQLObjectType({
     ...driverMutations,
     ...vehicleMutations,
     ...paymentMutations,
-    ...rateMutations
+    ...rateMutations,
+    ...rideMutations
   },
 });
