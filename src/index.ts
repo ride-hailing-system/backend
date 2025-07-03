@@ -13,11 +13,20 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
 
+app.use((req, res, next) => {
+  if (!req.body && process.env.NODE_ENV !== "production") {
+      req.body = {}; // Prevent Apollo from failing on undefined/null req.body
+  }
+  next();
+});
+
+
+// mangodb db username: admin
+// mangodb db password: rZg1cTW43409pM1q
 const mongodbUri =
-  process.env.MONGODB_URI ||
-  'mongodb+srv://surafelhabte1:yF7snVymyTGv5sGs@cluster0.1phpucp.mongodb.net/';
+  'mongodb+srv://admin:rZg1cTW43409pM1q@cluster0.cxfkn15.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+
 mongoose
   .connect(mongodbUri, {
     serverSelectionTimeoutMS: 5000,
@@ -55,19 +64,20 @@ async function startApolloServer() {
 
   app.use(
     '/graphql',
+    bodyParser.json(),
     expressMiddleware(apolloServer, {
       context: async ({ req }) => ({ req }),
     })
   );
 }
 
-startApolloServer();
-
-const PORT = 3000;
+const PORT = 4000;
 
 app.get('/', (_req, res) => {
   res.send('Hello, TypeScript with Express!');
 });
+
+startApolloServer();
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
