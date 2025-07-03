@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLString, GraphQLID } from 'graphql';
 
 const fields: any = {
-  id: {
+  _id: {
     type: GraphQLID,
     description: 'Unique identifier for the user',
   },
@@ -17,13 +17,29 @@ const fields: any = {
     type: GraphQLString,
     description: 'Email address used for login and communication',
   },
-  phone: {
+  phoneNumber: {
     type: GraphQLString,
     description: 'Phone number of the user',
   },
   role: {
     type: GraphQLString,
     description: 'Role of the user (rider)',
+  },
+  status: {
+    type: GraphQLString,
+    description: 'Current status of the user',
+  },
+  photoUrl: {
+    type: GraphQLString,
+    description: 'URL of the user\'s profile photo',
+  },
+  createdAt: {
+    type: GraphQLString,
+    description: 'Timestamp of when the user was created',
+  },
+  updatedAt: {
+    type: GraphQLString,
+    description: 'Timestamp of the last update to the user',
   },
 };
 
