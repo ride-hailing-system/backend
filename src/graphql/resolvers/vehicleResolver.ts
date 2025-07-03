@@ -2,7 +2,7 @@ import vehicleModel from '../../models/vehicleModel';
 
 export const getAllVehiclesResolver = async () => {
   try {
-    return await vehicleModel.aggregate([
+    const result: any = await vehicleModel.aggregate([
       {
         $lookup: {
           from: 'users',
@@ -12,7 +12,9 @@ export const getAllVehiclesResolver = async () => {
         },
       },
       { $unwind: '$driverInfo' },
+      { $sort: { createdAt: -1 } },
     ]);
+    return result;
   } catch (error: any) {
     throw new Error(error.message);
   }
