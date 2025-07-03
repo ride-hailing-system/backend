@@ -52,26 +52,40 @@ export const deleteRideResolver = async (_: any, args: { _id: string }) => {
 
 export const getAllRidesResolver = async () => {
   try {
-    return await rideModel.aggregate([
+    const result: any =  await rideModel.aggregate([
       {
         $lookup: {
           from: 'users',
           localField: 'rider',
           foreignField: '_id',
-          as: 'rider',
+          as: 'riderInfo',
         },
       },
-      { $unwind: '$rider' },
+      { $unwind: '$riderInfo' },
       {
         $lookup: {
           from: 'users',
           localField: 'driver',
           foreignField: '_id',
-          as: 'driver',
+          as: 'driverInfo',
         },
       },
-      { $unwind: { path: '$driver', preserveNullAndEmptyArrays: true } },
+      { $unwind: { path: '$driverInfo', preserveNullAndEmptyArrays: true } },
+      {
+        $project: {
+          _id: 1,
+          riderInfo: 1,
+          driverInfo: 1,
+          pickupLocation: 1,
+          dropoffLocation: 1,
+          fare: 1,
+          status: 1,
+          completedAt: 1,
+        },
+      },
+      { $sort: { createdAt: -1 } },
     ]);
+    return result;  
   } catch (error: any) {
     throw new Error(error.message);
   }

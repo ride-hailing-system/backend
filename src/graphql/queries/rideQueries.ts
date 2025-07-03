@@ -1,12 +1,11 @@
 import { GraphQLList } from 'graphql';
-import { getAllRidersResolver } from '../resolvers/userResolver';
 import { RideType } from '../types/rideType';
-import { getRideByIdResolver } from '../resolvers/rideResolver';
+import { getAllRidesResolver, getRideByIdResolver } from '../resolvers/rideResolver';
 
 export const rideQueries = {
   getAllRides: {
     type: new GraphQLList(RideType),
-    resolve: getAllRidersResolver,
+    resolve: getAllRidesResolver,
   },
   getRideById: {
     type: RideType,
