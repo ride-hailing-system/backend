@@ -1,4 +1,4 @@
-import { GraphQLList } from 'graphql';
+import { GraphQLList, GraphQLNonNull, GraphQLString } from 'graphql';
 import { UserType } from '../types/userType';
 import {
   getAllDriversResolver,
@@ -19,6 +19,9 @@ export const userQueries = {
 
   getAllUsers: {
     type: new GraphQLList(UserType),
+     args: {
+      role: { type: new GraphQLNonNull(GraphQLString) },
+    },
     resolve: getAllUserResolver,
   },
 };

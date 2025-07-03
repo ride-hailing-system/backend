@@ -27,9 +27,9 @@ export const getAllDriversResolver = async () => {
   }
 };
 
-export const getAllUserResolver = async () => {
+export const getAllUserResolver = async (_: any, args: any) => {
   try {
-    const results = await userModel.find({ role: 'user' }).sort({
+    const results = await userModel.find({ role: args.role }).sort({
       createdAt: -1,
     });
     return results;

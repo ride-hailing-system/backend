@@ -5,13 +5,17 @@ export const VehicleType = new GraphQLObjectType({
   name: 'Vehicle',
   description: 'Represents a vehicle used by a driver',
   fields: () => ({
-    id: {
+    _id: {
       type: GraphQLID,
       description: 'Unique identifier of the vehicle',
     },
     driver: {
+      type: GraphQLID,
+      description: 'Unique identifier of the driver',
+    },
+    driverInfo: {
       type: UserType,
-      description: 'Reference to the driver (User Model)',
+      description: 'Information about the driver of the vehicle',
     },
     vehicleType: {
       type: GraphQLString,

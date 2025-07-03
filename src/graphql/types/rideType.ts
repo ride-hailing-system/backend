@@ -6,9 +6,9 @@ export const RideType = new GraphQLObjectType({
   name: 'Ride',
   description: 'Represents a ride request and its journey details',
   fields: () => ({
-    id: { type: GraphQLID, description: 'Unique identifier for the ride' },
-    rider: { type: UserType, description: 'User who requested the ride' },
-    driver: { type: UserType, description: 'Driver who accepted the ride (optional)' },
+    _id: { type: GraphQLID, description: 'Unique identifier for the ride' },
+    riderInfo: { type: UserType, description: 'User who requested the ride' },
+    driverInfo: { type: UserType, description: 'Driver who accepted the ride (optional)' },
     pickupLocation: {
       type: GeoLocationType,
       description: 'Pickup location coordinates',
