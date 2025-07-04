@@ -80,10 +80,11 @@ export const getAllRidesResolver = async () => {
           dropoffLocation: 1,
           fare: 1,
           status: 1,
+          requestedAt: 1,
           completedAt: 1,
         },
       },
-      { $sort: { createdAt: -1 } },
+      { $sort: { requestedAt: -1 } },
     ]);
     return result;  
   } catch (error: any) {
