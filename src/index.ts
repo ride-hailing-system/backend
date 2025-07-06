@@ -23,9 +23,10 @@ app.use((req, res, next) => {
 
 
 // mangodb db username: admin
-// mangodb db password: rZg1cTW43409pM1q
+// mangodb db password: W3wWlMOGHZ3oP2OL
 const mongodbUri =
-  'mongodb+srv://admin:rZg1cTW43409pM1q@cluster0.cxfkn15.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+  'mongodb+srv://admin:W3wWlMOGHZ3oP2OL@cluster0.cxfkn15.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+// const mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/ridehailing';
 
 mongoose
   .connect(mongodbUri, {
