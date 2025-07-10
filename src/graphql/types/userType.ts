@@ -33,6 +33,14 @@ const fields: any = {
     type: GraphQLString,
     description: 'URL of the user\'s profile photo',
   },
+  suspendReason: {
+    type: GraphQLString,
+    description: "Primary reason for suspending the user account (e.g., abuse, fraud, inactivity)."
+  },
+  additionalInfo: {
+    type: GraphQLString,
+    description: "Optional details or notes related to the suspension action."
+  },  
   createdAt: {
     type: GraphQLString,
     description: 'Timestamp of when the user was created',
