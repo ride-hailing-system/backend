@@ -39,6 +39,18 @@ export const getAllUserResolver = async (_: any, args: any) => {
   }
 };
 
+export const getUserByIdResolver = async (_: any, args: any) => {
+  try {
+    const { userId } = args;
+    const result = await userModel.findById(userId);
+
+    return result;
+  } catch (error) {
+    console.error('Error fetching user by ID:', error);
+    throw new Error('Failed to fetch user by ID');
+  }
+};
+
 export const createUserResolver = async (_: any, args: any) => {
   try {
     const { firstName, lastName, phoneNumber, role, password, email } = args;
@@ -85,7 +97,8 @@ export const createUserResolver = async (_: any, args: any) => {
 
 export const updateUserResolver = async (_: any, args: any) => {
   try {
-    const { _id, firstName, lastName, phoneNumber, role, photoUrl, email } = args;
+    
+    const { _id, firstName, lastName, phoneNumber, role, photoUrl, email, suspendReason, additionalInfo } = args;
 
     let existing: any = null;
 
@@ -115,6 +128,8 @@ export const updateUserResolver = async (_: any, args: any) => {
       if (email) updateData.email = email;
       if (role) updateData.role = role;
       if (photoUrl) updateData.photoUrl = photoUrl;
+      if (suspendReason) updateData.suspendReason = suspendReason;
+      if (additionalInfo) updateData.additionalInfo = additionalInfo;
 
       const updatedUser = await userModel.findByIdAndUpdate(_id, updateData, {
         new: true,

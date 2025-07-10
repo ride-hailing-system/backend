@@ -4,6 +4,7 @@ import {
   getAllDriversResolver,
   getAllRidersResolver,
   getAllUserResolver,
+  getUserByIdResolver,
 } from '../resolvers/userResolver';
 
 export const userQueries = {
@@ -23,5 +24,12 @@ export const userQueries = {
       role: { type: new GraphQLNonNull(GraphQLString) },
     },
     resolve: getAllUserResolver,
+  },
+  getUserById: {
+    type: UserType,
+     args: {
+      userId: { type: new GraphQLNonNull(GraphQLString) },
+    },
+    resolve: getUserByIdResolver,
   },
 };
