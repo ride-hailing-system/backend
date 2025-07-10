@@ -9,6 +9,8 @@ export interface IUser extends Document {
   status?: 'active' | 'inactive' | 'suspended' | 'deleted';
   role: 'rider' | 'driver' | 'user' | 'admin';
   photoUrl: string;
+  suspendReason?: string;
+  additionalInfo?: string;
 }
 
 const userSchema = new Schema<IUser>(
@@ -25,6 +27,8 @@ const userSchema = new Schema<IUser>(
       default: 'active',
     },
     photoUrl: String,
+    suspendReason: String,
+    additionalInfo: String,
   },
   { timestamps: true }
 );
