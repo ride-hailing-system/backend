@@ -17,6 +17,10 @@ export const VehicleType = new GraphQLObjectType({
       type: UserType,
       description: 'Information about the driver of the vehicle',
     },
+    ownerInfo: {
+      type: UserType,
+      description: 'Information about the owner of the vehicle',
+    },
     vehicleType: {
       type: GraphQLString,
       description: 'Type of the vehicle (e.g., sedan, SUV)',
@@ -29,6 +33,10 @@ export const VehicleType = new GraphQLObjectType({
       type: GraphQLString,
       description: 'Model of the vehicle',
     },
+    vin: {
+      type: GraphQLString,
+      description: 'Vehicle Identification Number (VIN)',
+    },
     size: {
       type: GraphQLString,
       description: 'Size category of the vehicle (e.g., compact, full-size)',
@@ -36,6 +44,10 @@ export const VehicleType = new GraphQLObjectType({
     color: {
       type: GraphQLString,
       description: 'Color of the vehicle',
+    },
+    vehicleImage: {
+      type: GraphQLString,
+      description: 'URL of the vehicle image',
     },
   }),
 });

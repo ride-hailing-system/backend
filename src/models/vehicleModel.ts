@@ -7,6 +7,13 @@ export interface IVehicle extends Document {
   vehicleModel: string;
   size: string;
   color: string;
+  vin: string;
+  vehicleImage?: string;
+  ownerInfo?: {
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+  };
 }
 
 const vehicleSchema = new Schema<IVehicle>(
@@ -17,6 +24,13 @@ const vehicleSchema = new Schema<IVehicle>(
     vehicleModel: String,
     size: String,
     color: String,
+    vin: String,
+    vehicleImage: { type: String, default: '' },
+    ownerInfo: {
+      firstName: { type: String, required: true },
+      lastName: { type: String, required: true },
+      phoneNumber: { type: String, required: true },
+    }
   },
   { timestamps: true }
 );
