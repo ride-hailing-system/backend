@@ -5,8 +5,11 @@ import {
   GraphQLList,
   GraphQLFloat,
   GraphQLInputObjectType,
+  GraphQLString,
 } from 'graphql';
 import { UserType } from './userType';
+import { VehicleType } from './vehicleType';
+import { RideType } from './rideType';
 
 export const GeoLocationType = new GraphQLObjectType({
   name: 'GeoLocation',
@@ -35,12 +38,12 @@ export const DriverType = new GraphQLObjectType({
   name: 'Driver',
   description: 'Represents a driver in the system',
   fields: () => ({
-    id: {
+    _id: {
       type: GraphQLID,
       description: 'Unique identifier for the driver',
     },
     user: {
-      type: UserType,
+      type: GraphQLString,
       description: 'Linked user account for the driver',
     },
     isAvailable: {
@@ -50,6 +53,18 @@ export const DriverType = new GraphQLObjectType({
     location: {
       type: GeoLocationType,
       description: 'Driver current location',
+    },
+    vehicleInfo: {
+      type: new GraphQLList(VehicleType),
+      description: 'List of vehicles associated with the driver',
+    },
+    rides: {
+      type: new GraphQLList(RideType),
+      description: 'List of rides associated with the driver',
+    },
+    userInfo: {
+      type: UserType,
+      description: 'Detailed user information for the driver',
     },
   }),
 });

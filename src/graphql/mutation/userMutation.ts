@@ -22,12 +22,15 @@ export const userMutations = {
   updateUser: {
     type: UserType,
     args: {
+      _id: { type: new GraphQLNonNull(GraphQLString) },
       firstName: { type: GraphQLString },
       lastName: { type: GraphQLString },
       email: { type: GraphQLString },
       phoneNumber: { type: GraphQLString },
       role: { type: GraphQLString },
       photoUrl: { type: GraphQLString },
+      suspendReason: { type: GraphQLString },
+      additionalInfo: { type: GraphQLString },
     },
     resolve: updateUserResolver,
   },
