@@ -77,7 +77,7 @@ export const createUserResolver = async (_: any, args: any) => {
           role,
           phoneNumber,
           email,
-          password: await bcrypt.hash(password, 10),
+          password: await bcrypt.hash(password, 12),
         });
 
         const savedUser = await newUser.save();

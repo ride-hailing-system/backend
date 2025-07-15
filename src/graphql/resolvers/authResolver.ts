@@ -58,7 +58,7 @@ export const resetPasswordResolver = async (_: any, args: any) => {
   try {
     const { _id, password } = args;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 12);
 
     const updatedUser = await userModel
       .findByIdAndUpdate(
@@ -98,7 +98,7 @@ export const changePasswordResolver = async (_: any, args: any) => {
       throw new Error('Incorrect old password');
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 12);
 
     const updatedUser = await userModel
       .findByIdAndUpdate(
