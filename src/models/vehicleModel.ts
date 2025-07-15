@@ -14,6 +14,7 @@ export interface IVehicle extends Document {
     lastName: string;
     phoneNumber: string;
   };
+  isDriverOwner: boolean;
 }
 
 const vehicleSchema = new Schema<IVehicle>(
@@ -30,7 +31,8 @@ const vehicleSchema = new Schema<IVehicle>(
       firstName: { type: String, required: true },
       lastName: { type: String, required: true },
       phoneNumber: { type: String, required: true },
-    }
+    },
+    isDriverOwner: { type: Boolean, required: false, default: true }
   },
   { timestamps: true }
 );

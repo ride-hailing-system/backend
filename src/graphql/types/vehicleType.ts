@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLID, GraphQLString } from 'graphql';
+import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLBoolean } from 'graphql';
 import { UserType } from './userType';
 
 export const VehicleType = new GraphQLObjectType({
@@ -49,5 +49,9 @@ export const VehicleType = new GraphQLObjectType({
       type: GraphQLString,
       description: 'URL of the vehicle image',
     },
+    isDriverOwner: {
+      type: GraphQLBoolean,
+      description: 'Indicate the owner ship of vehicle bu driver',
+    }
   }),
 });

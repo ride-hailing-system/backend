@@ -34,7 +34,7 @@ export const getVehicleByIdResolver = async (_: any, args: any) => {
 
 export const createVehicleResolver = async (_: any, args: any) => {
   try {
-    const { driver, vehicleType, plateNumber, vehicleModel: model, size, color } = args;
+    const { driver, vehicleType, plateNumber, vehicleModel: model, size, color, isDriverOwner,vin, ownerInfo } = args;
 
     const vehicle = new vehicleModel({
       driver: driver,
@@ -43,6 +43,9 @@ export const createVehicleResolver = async (_: any, args: any) => {
       vehicleModel: model,
       size: size,
       color: color,
+      isDriverOwner:isDriverOwner,
+      vin:vin,
+      ownerInfo:ownerInfo
     });
 
     const savedVehicle = await vehicle.save();
@@ -54,7 +57,7 @@ export const createVehicleResolver = async (_: any, args: any) => {
 
 export const updateVehicleResolver = async (_: any, args: any) => {
   try {
-    const { _id, driver, vehicleType, plateNumber, vehicleModel: model, size, color } = args;
+    const { _id, driver, vehicleType, plateNumber, vehicleModel: model, size, color,isDriverOwner,vin,ownerInfo } = args;
 
     const updatedVehicle = await vehicleModel.findByIdAndUpdate(
       _id,
@@ -65,6 +68,9 @@ export const updateVehicleResolver = async (_: any, args: any) => {
         vehicleModel: model,
         size: size,
         color: color,
+        isDriverOwner:isDriverOwner,
+        vin:vin,
+        ownerInfo:ownerInfo
       },
       { new: true }
     );
