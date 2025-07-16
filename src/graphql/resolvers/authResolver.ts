@@ -31,9 +31,9 @@ export const getToken = async (value: string) => {
 
 export const loginResolver = async (_: any, args: any) => {
   try {
-    const { phoneNumber, password } = args;
+    const { email, password } = args;
 
-    const user: any = await userModel.findOne({ phoneNumber }).lean();
+    const user: any = await userModel.findOne({ email }).lean();
 
     if (!user) {
       throw new Error('user not found');

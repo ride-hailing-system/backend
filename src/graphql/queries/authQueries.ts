@@ -6,7 +6,7 @@ export const authQueries = {
   login: {
     type: LoginType,
     args: {
-      phoneNumber: { type: new GraphQLNonNull(GraphQLString) },
+      email: { type: new GraphQLNonNull(GraphQLString) },
       password: { type: new GraphQLNonNull(GraphQLString) },
     },
     resolve: loginResolver,
