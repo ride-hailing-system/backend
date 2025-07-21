@@ -6,11 +6,11 @@ export const VehicleType = new GraphQLObjectType({
   description: 'Represents a vehicle used by a driver',
   fields: () => ({
     _id: {
-      type: GraphQLID,
+      type: GraphQLString,
       description: 'Unique identifier of the vehicle',
     },
     driver: {
-      type: GraphQLID,
+      type: GraphQLString,
       description: 'Unique identifier of the driver',
     },
     driverInfo: {
@@ -52,6 +52,14 @@ export const VehicleType = new GraphQLObjectType({
     isDriverOwner: {
       type: GraphQLBoolean,
       description: 'Indicate the owner ship of vehicle bu driver',
-    }
+    },
+    createdAt: {
+      type: GraphQLString,
+      description: 'Timestamp of when the vehicle was created',
+    },
+    updatedAt: {
+      type: GraphQLString,
+      description: 'Timestamp of the last update to the vehicle',
+    },
   }),
 });
