@@ -50,8 +50,10 @@ export const deleteRideResolver = async (_: any, args: { _id: string }) => {
   }
 };
 
-export const getAllRidesResolver = async () => {
+export const getAllRidesResolver = async (_: any, args: { limit: number }) => {
   try {
+    const {limit} = args;
+
     const result: any =  await rideModel.aggregate([
       {
         $lookup: {
@@ -85,6 +87,7 @@ export const getAllRidesResolver = async () => {
         },
       },
       { $sort: { requestedAt: -1 } },
+      { $limit: limit }
     ]);
     return result;  
   } catch (error: any) {
