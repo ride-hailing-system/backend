@@ -1,7 +1,6 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
 import { getDriverDetailResolver, getDriverInfoResolver } from '../resolvers/driverResolver';
 import { DriverType } from '../types/driverType';
-import { get } from 'http';
 
 export const driverQueries = {
   getDriverInfo: {
