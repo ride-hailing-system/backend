@@ -22,6 +22,7 @@ export const userQueries = {
     type: new GraphQLList(UserType),
      args: {
       role: { type: new GraphQLNonNull(GraphQLString) },
+      status: { type: new GraphQLNonNull(GraphQLString) },
     },
     resolve: getAllUserResolver,
   },

@@ -31,6 +31,7 @@ export const userMutations = {
       photoUrl: { type: GraphQLString },
       suspendReason: { type: GraphQLString },
       additionalInfo: { type: GraphQLString },
+      status: { type: GraphQLString },
     },
     resolve: updateUserResolver,
   },

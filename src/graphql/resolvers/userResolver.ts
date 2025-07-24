@@ -29,9 +29,14 @@ export const getAllDriversResolver = async () => {
 
 export const getAllUserResolver = async (_: any, args: any) => {
   try {
-    const results = await userModel.find({ role: args.role }).sort({
-      createdAt: -1,
-    });
+    const {role, status} = args;
+    const results = await userModel.find({
+      role,
+      ...(status === "deleted"
+        ? { status: "deleted" }
+        : { status: { $ne: "deleted" } }),
+    }).sort({ updatedAt: -1 });
+    
     return results;
   } catch (error) {
     console.error('Error fetching all users:', error);
@@ -98,7 +103,7 @@ export const createUserResolver = async (_: any, args: any) => {
 export const updateUserResolver = async (_: any, args: any) => {
   try {
     
-    const { _id, firstName, lastName, phoneNumber, role, photoUrl, email, suspendReason, additionalInfo } = args;
+    const { _id, firstName, lastName, phoneNumber, role, photoUrl, email, suspendReason, additionalInfo, status } = args;
 
     let existing: any = null;
 
@@ -130,6 +135,7 @@ export const updateUserResolver = async (_: any, args: any) => {
       if (photoUrl) updateData.photoUrl = photoUrl;
       if (suspendReason) updateData.suspendReason = suspendReason;
       if (additionalInfo) updateData.additionalInfo = additionalInfo;
+      if (status) updateData.status = status;
 
       const updatedUser = await userModel.findByIdAndUpdate(_id, updateData, {
         new: true,
