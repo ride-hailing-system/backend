@@ -33,4 +33,5 @@ export const userQueries = {
     },
     resolve: getUserByIdResolver,
   },
+  
 };

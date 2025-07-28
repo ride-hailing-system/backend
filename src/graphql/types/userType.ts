@@ -61,9 +61,5 @@ export const LoginType = new GraphQLObjectType({
   name: 'Login',
   fields: () => ({
     ...fields,
-    token: {
-      type: GraphQLString,
-      description: 'The login token.',
-    },
   }),
 });

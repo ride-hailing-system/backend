@@ -8,13 +8,17 @@ import { expressMiddleware } from '@apollo/server/express4';
 import { GraphQLError } from 'graphql';
 import schema from './graphql/schema';
 import dotenv from "dotenv";
+import cookieParser from 'cookie-parser';
+
+
 dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use((req, res, next) => {
   if (!req.body && process.env.NODE_ENV !== "production") {
@@ -64,9 +68,10 @@ async function startApolloServer() {
 
   app.use(
     '/graphql',
-    bodyParser.json(),
+    // cors({ origin: true, credentials: true }),
+    // bodyParser.json(),
     expressMiddleware(apolloServer, {
-      context: async ({ req }) => ({ req }),
+      context: async ({ req, res }) => ({ req, res }),
     })
   );
 }

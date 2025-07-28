@@ -1,6 +1,7 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
-import { loginResolver } from '../resolvers/authResolver';
+import { getSessionByIdResolver, loginResolver, logoutResolver } from '../resolvers/authResolver';
 import { LoginType } from '../types/userType';
+import { SessionType } from '../types/sessionType';
 
 export const authQueries = {
   login: {
@@ -10,5 +11,16 @@ export const authQueries = {
       password: { type: new GraphQLNonNull(GraphQLString) },
     },
     resolve: loginResolver,
+  },
+
+  // session
+  getSessionById: {
+    type: SessionType,
+    resolve: getSessionByIdResolver,
+  },
+
+  logout: {
+    type: SessionType,
+    resolve: logoutResolver,
   },
 };
