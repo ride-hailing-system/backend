@@ -20,8 +20,15 @@ export const GeoLocationType = new GraphQLObjectType({
       description: 'GeoJSON type, typically "Point"',
     },
     coordinates: {
-      type: new GraphQLList(GraphQLFloat),
-      description: 'Coordinates in longitude, latitude format',
+      type: new GraphQLObjectType({
+      name: 'GeoLocationCoordinates',
+      fields: {
+        latitude: { type: GraphQLFloat },
+        longitude: { type: GraphQLFloat },
+        description: { type: GraphQLString },
+      },
+      }),
+      description: 'Coordinates in longitude, latitude format and place description',
     },
   }),
 });
@@ -31,6 +38,7 @@ export const GeoLocationInputType = new GraphQLInputObjectType({
   fields: {
     latitude: { type: GraphQLFloat },
     longitude: { type: GraphQLFloat },
+    description: { type: GraphQLString },
   },
 });
 

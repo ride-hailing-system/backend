@@ -9,15 +9,17 @@ export interface IRide extends Document {
   pickupLocation: {
     type: 'Point';
     coordinates: {
-      type: number;
-      coordinates: number; 
+      latitude: number;
+      longitude: number; 
+      description: string;
     };
   };
   dropoffLocation: {
     type: 'Point';
     coordinates: {
-      type: number; 
-      coordinates: number; 
+      latitude: number;
+      longitude: number; 
+      description: string;
     };
   };
   fare: number;
@@ -39,6 +41,7 @@ const rideSchema = new Schema<IRide>(
       coordinates: {
         latitude: { type: Number, required: true },
         longitude: { type: Number, required: true },
+        description: { type: Number, required: true },
       },
     },
     dropoffLocation: {
@@ -46,6 +49,7 @@ const rideSchema = new Schema<IRide>(
       coordinates: {
         latitude: { type: Number, required: true },
         longitude: { type: Number, required: true },
+        description: { type: Number, required: true },
       },
     },
     fare: Number,
