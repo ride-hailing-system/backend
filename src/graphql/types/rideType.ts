@@ -30,5 +30,15 @@ export const RideType = new GraphQLObjectType({
       type: GraphQLString,
       description: 'ISO timestamp when the ride was completed (optional)',
     },
+    phoneNumber: { type: GraphQLString, description: 'Phone number of the rider' },
+    fullName: { type: GraphQLString, description: 'Full name of the rider' },
+    createdByAdmin: {
+      type: GraphQLString,
+      description: 'Indicates if the ride was created by an admin',
+    },
+    requestNumber: {
+      type: GraphQLString,
+      description: 'Unique request number for the ride, useful for tracking',
+    },
   }),
 });

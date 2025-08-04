@@ -3,12 +3,16 @@ import rideModel, { IRide } from '../../models/rideModel';
 
 export const createRideResolver = async (_: any, args: any) => {
   try {
-    const { rider, pickupLocation, dropoffLocation, fare } = args;
+    const { rider, pickupLocation, dropoffLocation, fare, phoneNumber, fullName,createdByAdmin,requestNumber } = args;
     const ride = new rideModel({
       rider: rider,
-      pickupLocation: pickupLocation,
-      dropoffLocation: dropoffLocation,
+      pickupLocation: { type: "Point",coordinates: { ...pickupLocation } },
+      dropoffLocation: { type: "Point",coordinates: { ...dropoffLocation} },
       fare: fare,
+      phoneNumber: phoneNumber,
+      fullName: fullName,
+      createdByAdmin:createdByAdmin,
+      requestNumber: requestNumber
     });
     return await ride.save();
   } catch (error: any) {
@@ -18,15 +22,17 @@ export const createRideResolver = async (_: any, args: any) => {
 
 export const updateRideResolver = async (_: any, args: any) => {
   try {
-    const { _id, driver, pickupLocation, dropoffLocation, fare, status } = args;
+    const { _id, driver, pickupLocation, dropoffLocation, fare, status,phoneNumber,fullName,createdByAdmin } = args;
 
     const updateData: Partial<IRide> = {};
     if (driver) updateData.driver = driver;
-    if (pickupLocation) updateData.pickupLocation = pickupLocation;
-    if (dropoffLocation) updateData.dropoffLocation = dropoffLocation;
-    if (dropoffLocation) updateData.dropoffLocation = dropoffLocation;
+    if (pickupLocation) updateData.pickupLocation = { type: "Point", coordinates: { ...pickupLocation } };
+    if (dropoffLocation) updateData.dropoffLocation = { type: "Point", coordinates: { ...dropoffLocation } };
     if (status) updateData.status = status;
     if (fare) updateData.fare = fare;
+    if (phoneNumber) updateData.phoneNumber = phoneNumber;
+    if (fullName) updateData.fullName = fullName;
+    if (createdByAdmin) updateData.createdByAdmin = createdByAdmin
 
     if (status === 'completed') {
       updateData.completedAt = new Date().toISOString();
@@ -63,7 +69,7 @@ export const getAllRidesResolver = async (_: any, args: { limit: number }) => {
           as: 'riderInfo',
         },
       },
-      { $unwind: '$riderInfo' },
+      { $unwind: { path: '$riderInfo', preserveNullAndEmptyArrays: true }, },
       {
         $lookup: {
           from: 'users',
@@ -82,8 +88,12 @@ export const getAllRidesResolver = async (_: any, args: { limit: number }) => {
           dropoffLocation: 1,
           fare: 1,
           status: 1,
+          phoneNumber: 1,
+          fullName: 1,
           requestedAt: 1,
           completedAt: 1,
+          createdByAdmin: 1,
+          requestNumber: 1
         },
       },
       { $sort: { requestedAt: -1 } },
@@ -107,7 +117,7 @@ export const getRideByIdResolver = async (_: any, args: { id: string }) => {
           as: 'rider',
         },
       },
-      { $unwind: '$rider' },
+      { $unwind: { path: '$riderInfo', preserveNullAndEmptyArrays: true }, },
       {
         $lookup: {
           from: 'users',
