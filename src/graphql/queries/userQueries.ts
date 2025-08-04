@@ -5,6 +5,7 @@ import {
   getAllRidersResolver,
   getAllUserResolver,
   getUserByIdResolver,
+  getUserByPhoneNumberResolver,
 } from '../resolvers/userResolver';
 
 export const userQueries = {
@@ -33,5 +34,11 @@ export const userQueries = {
     },
     resolve: getUserByIdResolver,
   },
-  
+  getUserByPhoneNumber: {
+    type: UserType,
+     args: {
+      phoneNumber: { type: new GraphQLNonNull(GraphQLString) },
+    },
+    resolve: getUserByPhoneNumberResolver,
+  },
 };

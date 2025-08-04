@@ -16,12 +16,12 @@ export const GeoLocationType = new GraphQLObjectType({
   description: 'Represents a geographical location in GeoJSON format',
   fields: () => ({
     type: {
-      type: GraphQLID,
+      type: GraphQLString,
       description: 'GeoJSON type, typically "Point"',
     },
     coordinates: {
       type: new GraphQLList(GraphQLFloat),
-      description: 'Coordinates in [longitude, latitude] format',
+      description: 'Coordinates in longitude, latitude format',
     },
   }),
 });

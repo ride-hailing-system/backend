@@ -56,6 +56,18 @@ export const getUserByIdResolver = async (_: any, args: any) => {
   }
 };
 
+export const getUserByPhoneNumberResolver = async (_: any, args: any) => {
+  try {
+    const { phoneNumber } = args;
+    const result = await userModel.findOne({ phoneNumber }).lean();
+
+    return result;
+  } catch (error) {
+    console.error('Error fetching user by phone number:', error);
+    throw new Error('Failed to fetch user by phone number');
+  }
+};
+
 export const createUserResolver = async (_: any, args: any) => {
   try {
     const { firstName, lastName, phoneNumber, role, password, email } = args;

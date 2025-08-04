@@ -1,4 +1,4 @@
-import { GraphQLFloat, GraphQLID, GraphQLNonNull, GraphQLString } from 'graphql';
+import { GraphQLBoolean, GraphQLFloat, GraphQLID, GraphQLNonNull, GraphQLString } from 'graphql';
 import {
   createRideResolver,
   deleteRideResolver,
@@ -11,10 +11,14 @@ export const rideMutations = {
   createRide: {
     type: RideType,
     args: {
-      rider: { type: new GraphQLNonNull(GraphQLID) },
+      rider: { type: GraphQLID },
+      requestNumber: { type: new GraphQLNonNull(GraphQLString) },
+      phoneNumber: { type: GraphQLString },
+      fullName: { type: GraphQLString },
       pickupLocation: { type: new GraphQLNonNull(GeoLocationInputType) },
       dropoffLocation: { type: new GraphQLNonNull(GeoLocationInputType) },
       fare: { type: GraphQLFloat },
+      createdByAdmin: { type: GraphQLBoolean },
     },
     resolve: createRideResolver,
   },
@@ -22,11 +26,14 @@ export const rideMutations = {
     type: RideType,
     args: {
       _id: { type: new GraphQLNonNull(GraphQLID) },
+      phoneNumber: { type: GraphQLString },
+      fullName: { type: GraphQLString },
       driver: { type: GraphQLID },
       pickupLocation: { type: GeoLocationInputType },
       dropoffLocation: { type: GeoLocationInputType },
       fare: { type: GraphQLFloat },
       status: { type: GraphQLString },
+      createdByAdmin: { type: GraphQLBoolean },
     },
     resolve: updateRideResolver,
   },
