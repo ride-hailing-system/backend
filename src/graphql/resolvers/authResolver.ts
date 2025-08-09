@@ -210,3 +210,21 @@ export const logoutResolver = async (_: any, args: any,context: any) => {
   }
 };
 
+// check password
+export const checkPasswordResolver = async (_: any, args: any) => {
+  try {
+    const { _id, password } = args;
+
+    const user: any = await userModel.findById({ _id }).lean();
+    if (!user) throw new Error('User not found');
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) throw new Error('Incorrect password');
+
+    return { ...user };
+  } catch (error: any) {
+    console.error('check password error:', error);
+    throw new Error('check password failed');
+  }
+};
+
