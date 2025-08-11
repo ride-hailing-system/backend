@@ -9,11 +9,14 @@ import { GraphQLError } from 'graphql';
 import schema from './graphql/schema';
 import dotenv from "dotenv";
 import cookieParser from 'cookie-parser';
-
+import { createClient } from "@supabase/supabase-js";
+import multer from "multer";
+import { deleteFile, uploadFile } from './service/file';
 
 dotenv.config();
 
 const app = express();
+const upload = multer({ storage: multer.memoryStorage() });
 
 app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.json());
@@ -30,6 +33,10 @@ app.use((req, res, next) => {
 // mangodb db username: admin
 // mangodb db password: W3wWlMOGHZ3oP2OL
 const mongodbUri: any = process.env.MONGODB_URI || 'mongodb://localhost:27017/ridehailing';
+
+const supabaseUrl = "https://sbclwswlxlrtswaknshk.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNiY2x3c3dseGxydHN3YWtuc2hrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NTQ2NTQsImV4cCI6MjA3MDMzMDY1NH0.Q2iJuLbwBNQyA_EhZFWV9SIiK6s12SaSkOF2EUy5jow";
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 mongoose
   .connect(mongodbUri, {
@@ -75,6 +82,28 @@ async function startApolloServer() {
     })
   );
 }
+
+
+app.post("/uploadFile", upload.single("file"), async (req, res) => {
+  if (!req.file) return res.status(400).send("No file uploaded");
+
+  const result: Promise<{status: boolean, message: string}> =  uploadFile(req.body.fileName, req.file,supabase, true);
+
+  if (!(await result).status) return res.status(500).json({ error: (await result).message });
+
+  res.json({ url: (await result).message });
+});
+
+app.post("/deleteFile", async (req, res) => {
+  const fileName = req.body.fileName;
+  if (!fileName) return res.status(400).send("file name required");
+
+  const result = await deleteFile(fileName, supabase);
+
+  if (!result.status) return res.status(500).json({ error: result.message });
+
+  res.json({ message: result.message });
+});
 
 const PORT = 4000;
 
