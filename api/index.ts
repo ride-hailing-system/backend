@@ -6,12 +6,12 @@ import bodyParser from 'body-parser';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { GraphQLError } from 'graphql';
-import schema from './graphql/schema';
+import schema from '../src/graphql/schema';
 import dotenv from "dotenv";
 import cookieParser from 'cookie-parser';
 import { createClient } from "@supabase/supabase-js";
 import multer from "multer";
-import { deleteFile, uploadFile } from './service/file';
+import { deleteFile, uploadFile } from '../src/service/file';
 
 dotenv.config();
 
