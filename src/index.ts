@@ -19,6 +19,13 @@ const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
 
 app.use(cors({ origin: true, credentials: true }));
+app.use(cors({
+  origin: [
+  "http://localhost:4000",
+  "https://ride-hailing-backend.vercel.app"
+  ],
+  credentials: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
